@@ -263,6 +263,14 @@ export interface Post {
    * Estimated reading time in minutes (auto-calculated)
    */
   readingTime?: number | null;
+  /**
+   * Number of unique views (auto-tracked)
+   */
+  views?: number | null;
+  /**
+   * Number of manual likes (auto-tracked)
+   */
+  likes?: number | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -278,6 +286,10 @@ export interface Category {
    * URL-safe identifier (e.g. ai-for-pms)
    */
   slug: string;
+  /**
+   * Controls the display sequence on the homepage grid (1 is first).
+   */
+  order?: number | null;
   description?: string | null;
   /**
    * Optional hex colour for the category badge
@@ -434,6 +446,8 @@ export interface PostsSelect<T extends boolean = true> {
         noIndex?: T;
       };
   readingTime?: T;
+  views?: T;
+  likes?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -445,6 +459,7 @@ export interface PostsSelect<T extends boolean = true> {
 export interface CategoriesSelect<T extends boolean = true> {
   name?: T;
   slug?: T;
+  order?: T;
   description?: T;
   color?: T;
   updatedAt?: T;

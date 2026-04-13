@@ -13,6 +13,27 @@ const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
 export default buildConfig({
+  onInit: async (payload) => {
+    if (process.env.ADMIN_EMAIL && process.env.ADMIN_PASSWORD) {
+      const existingUsers = await payload.find({
+        collection: "users",
+        limit: 1,
+      });
+
+      if (existingUsers.totalDocs === 0) {
+        await payload.create({
+          collection: "users",
+          data: {
+            name: "Super Admin",
+            email: process.env.ADMIN_EMAIL,
+            password: process.env.ADMIN_PASSWORD,
+            role: "admin",
+          },
+        });
+        payload.logger.info(`Initial admin user created successfully with email: ${process.env.ADMIN_EMAIL}`);
+      }
+    }
+  },
   admin: {
     user: Users.slug,
     meta: {
@@ -28,7 +49,7 @@ export default buildConfig({
   },
   db: sqliteAdapter({
     client: {
-      url: process.env.DATABASE_URL ?? `file:${path.resolve(dirname, "../../database.db")}`,
+      url: process.env.DATABASE_URL ?? `file:${path.join(process.cwd(), "database.db")}`,
     },
   }),
   upload: {

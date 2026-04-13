@@ -162,7 +162,6 @@ export const Posts: CollectionConfig = {
       ],
     },
 
-    // ── Reading time (computed) ────────────────────────────
     {
       name: "readingTime",
       type: "number",
@@ -170,6 +169,27 @@ export const Posts: CollectionConfig = {
         position: "sidebar",
         readOnly: true,
         description: "Estimated reading time in minutes (auto-calculated)",
+      },
+    },
+    // ── Metrics ────────────────────────────────────────────
+    {
+      name: "views",
+      type: "number",
+      defaultValue: 0,
+      admin: {
+        position: "sidebar",
+        readOnly: true,
+        description: "Number of unique views (auto-tracked)",
+      },
+    },
+    {
+      name: "likes",
+      type: "number",
+      defaultValue: 0,
+      admin: {
+        position: "sidebar",
+        readOnly: true,
+        description: "Number of manual likes (auto-tracked)",
       },
     },
   ],

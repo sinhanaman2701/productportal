@@ -8,7 +8,7 @@ let payloadInstance: ReturnType<typeof getPayload> extends Promise<infer T>
   ? T
   : never;
 
-async function getPayloadClient() {
+export async function getPayloadClient() {
   if (!payloadInstance) {
     payloadInstance = await getPayload({ config: configPromise });
   }
@@ -152,6 +152,64 @@ export async function getPostsByTag(
   return result.docs;
 }
 
+// ── Sorted / Ranked feeds ─────────────────────────────────────────────────
+
+/** Top by likes in the last 7 days (People's Choice) */
+export async function getPeoplesChoicePosts(limit = 10): Promise<Post[]> {
+  const payload = await getPayloadClient();
+  const oneWeekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+  const result = await payload.find({
+    collection: "posts",
+    limit,
+    where: {
+      and: [
+        { status: { equals: "published" } },
+        { publishedAt: { greater_than_equal: oneWeekAgo } },
+      ],
+    },
+    sort: "-likes",
+    depth: 2,
+  });
+  // fallback: if no posts in last 7 days, return global top by likes
+  if (result.docs.length === 0) {
+    const fallback = await payload.find({
+      collection: "posts",
+      limit,
+      where: { status: { equals: "published" } },
+      sort: "-likes",
+      depth: 2,
+    });
+    return fallback.docs;
+  }
+  return result.docs;
+}
+
+/** Top by all-time likes */
+export async function getTopPosts(limit = 10): Promise<Post[]> {
+  const payload = await getPayloadClient();
+  const result = await payload.find({
+    collection: "posts",
+    limit,
+    where: { status: { equals: "published" } },
+    sort: "-likes",
+    depth: 2,
+  });
+  return result.docs;
+}
+
+/** Newest by publishedAt (not updatedAt) */
+export async function getNewestPosts(limit = 10): Promise<Post[]> {
+  const payload = await getPayloadClient();
+  const result = await payload.find({
+    collection: "posts",
+    limit,
+    where: { status: { equals: "published" } },
+    sort: "-publishedAt",
+    depth: 2,
+  });
+  return result.docs;
+}
+
 // ── Categories ─────────────────────────────────────────────────────────────
 
 export async function getAllCategories(): Promise<Category[]> {
@@ -159,7 +217,7 @@ export async function getAllCategories(): Promise<Category[]> {
   const result = await payload.find({
     collection: "categories",
     limit: 100,
-    sort: "name",
+    sort: "order", // Sorts numerically 1, 2, 3...
   });
   return result.docs;
 }

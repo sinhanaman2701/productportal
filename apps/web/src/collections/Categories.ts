@@ -4,7 +4,7 @@ export const Categories: CollectionConfig = {
   slug: "categories",
   admin: {
     useAsTitle: "name",
-    defaultColumns: ["name", "slug", "description"],
+    defaultColumns: ["name", "slug", "order", "description"],
   },
   access: {
     read: () => true,
@@ -25,6 +25,14 @@ export const Categories: CollectionConfig = {
       unique: true,
       admin: {
         description: "URL-safe identifier (e.g. ai-for-pms)",
+      },
+    },
+    {
+      name: "order",
+      type: "number",
+      defaultValue: 99,
+      admin: {
+        description: "Controls the display sequence on the homepage grid (1 is first).",
       },
     },
     {

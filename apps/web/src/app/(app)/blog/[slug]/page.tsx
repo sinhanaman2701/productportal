@@ -3,6 +3,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ReadingProgressBar } from "@/components/layout/ReadingProgressBar";
 import { ArticleCard } from "@/components/blog/ArticleCard";
+import { ViewTracker } from "@/components/blog/ViewTracker";
 import { getPostBySlug, getAllPosts, getRelatedPosts } from "@/lib/payload";
 import { formatDate, absoluteUrl } from "@/lib/utils";
 import Image from "next/image";
@@ -105,7 +106,6 @@ export default async function ArticlePage({ params }: Props) {
   return (
     <>
       <ReadingProgressBar />
-      <Navbar />
       <ArticleJsonLd post={post} />
 
       <main className="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
@@ -185,18 +185,18 @@ export default async function ArticlePage({ params }: Props) {
                 </div>
               )}
 
-              {/* Content — rich text rendered as prose */}
               <div
-                className="prose prose-invert prose-lg max-w-none
-                  prose-headings:font-[var(--font-heading)] prose-headings:font-bold prose-headings:text-[var(--color-text-primary)]
+                className="prose prose-lg max-w-none
+                  prose-headings:font-[var(--font-heading)] prose-headings:font-bold prose-headings:text-[var(--color-text-primary)] prose-headings:tracking-tight
                   prose-p:text-[var(--color-text-secondary)] prose-p:leading-[1.8]
-                  prose-a:text-[var(--color-indigo-400)] prose-a:no-underline hover:prose-a:underline
-                  prose-strong:text-[var(--color-text-primary)]
-                  prose-code:text-[var(--color-orange-400)] prose-code:bg-[var(--color-surface-2)] prose-code:rounded prose-code:px-1.5 prose-code:py-0.5
-                  prose-pre:bg-[var(--color-surface)] prose-pre:border prose-pre:border-[var(--color-border)]
-                  prose-blockquote:border-l-[var(--color-indigo-500)] prose-blockquote:text-[var(--color-text-secondary)]
+                  prose-li:text-[var(--color-text-secondary)]
+                  prose-a:text-[var(--color-indigo-500)] hover:prose-a:text-[var(--color-indigo-600)] prose-a:transition-colors
+                  prose-strong:text-[var(--color-text-primary)] prose-strong:font-bold
+                  prose-code:text-[var(--color-orange-600)] prose-code:bg-[var(--color-surface-2)] prose-code:rounded prose-code:px-1.5 prose-code:py-0.5
+                  prose-pre:bg-[var(--color-surface-2)] prose-pre:text-[var(--color-text-primary)] prose-pre:border prose-pre:border-[var(--color-border)]
+                  prose-blockquote:border-l-[var(--color-indigo-500)] prose-blockquote:text-[var(--color-text-secondary)] prose-blockquote:not-italic prose-blockquote:bg-[var(--color-surface-2)] prose-blockquote:p-4 prose-blockquote:rounded-r-[var(--radius-md)]
                   prose-hr:border-[var(--color-border)]
-                  prose-img:rounded-[var(--radius-md)]"
+                  prose-img:rounded-[var(--radius-lg)] prose-img:shadow-sm"
               >
                 {post.content ? (
                   <RichText data={post.content} />
@@ -243,8 +243,8 @@ export default async function ArticlePage({ params }: Props) {
             </aside>
           </div>
         </div>
+        <ViewTracker slug={slug} />
       </main>
-      <Footer />
     </>
   );
 }

@@ -37,7 +37,6 @@ export default async function CategoryPage({ params }: Props) {
 
   return (
     <>
-      <Navbar />
       <main className="pt-28 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
@@ -72,7 +71,6 @@ export default async function CategoryPage({ params }: Props) {
           )}
         </div>
       </main>
-      <Footer />
     </>
   );
 }
