@@ -25,9 +25,10 @@ export default function SearchPage() {
     const loadPagefind = async () => {
       try {
         if (typeof window !== "undefined" && !window.pagefind) {
-          // In Next.js, pagefind files will be built to /pagefind/
+          // Use a variable for the path to prevent tsc from trying to resolve the static module
+          const pagefindPath = "/pagefind/pagefind.js";
           const pagefind = await import(
-            /* webpackIgnore: true */ "/pagefind/pagefind.js"
+            /* webpackIgnore: true */ pagefindPath
           );
           await pagefind.options({
             mergeIndex: [{ bundlePath: "/pagefind/" }],
