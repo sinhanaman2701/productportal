@@ -15,8 +15,8 @@ The foundational backend, CMS, and high-performance blog platform for the next-g
 ## 🛠 Prerequisites
 
 Before setting up the project locally, ensure you have the following installed:
-- **Node.js**: v18.20.0 or higher
-- **Package Manager**: pnpm (recommended) or npm
+- **Node.js**: v20.0.0 or higher
+- **Package Manager**: pnpm (version 9+)
 - **Docker**: For running a local PostgreSQL instance (optional, defaults to SQLite)
 - **Git**
 
@@ -32,7 +32,7 @@ git clone https://github.com/sinhanaman2701/ProductPlatform.git
 cd ProductPlatform
 
 # Install root workspace dependencies
-npm install --legacy-peer-deps
+pnpm install
 ```
 
 ### 2. Configure Environment Variables
@@ -61,12 +61,11 @@ DATABASE_URL=file:./database.db  # Or the postgres URL above
 ```
 
 ### 3. Initialize & Seed the Database
-Before running the frontend, ensure your SQLite database contains the core categories required by the Hero Grid layout UI.
+This project relies on a specific set of Categories to render the Hero Grid (Bento Grid) symmetrically. To ensure your UI matches the production blueprint, run the master seed:
 
 ```bash
 # In the apps/web/ directory:
-npx tsx src/scripts/seed-categories.ts
-npx tsx src/scripts/seed.ts
+npx tsx src/scripts/seed-all.ts
 ```
 
 ### 4. Start the Development Server
@@ -95,6 +94,19 @@ Once the server has spun up successfully and the local compilation finishes, you
 2. **Strict Bright Mode**: We have explicitly discarded standard dark mode tailwind bindings (`dark:bg-black`) to ensure deep focus on typography crispness. All hues are mapped to system CSS Variables (e.g., `var(--color-surface)`).
 3. **Payload Local API**: To guarantee insane hydration speeds on SSG pages, Next.js Server Components query Payload through direct local execution context (`getPayloadClient()`), rather than initiating `fetch()` waterfalls.
 4. **Engagement Metrics (Views/Claps)**: We utilize a hybrid approach for metrics. Views are tracked via an invisible `<ViewTracker />` client component that pings a Server Action on mount, effectively bypassing Next.js static component caching. Claps are handled via a local-storage-guarded animated Like button.
+
+## 🩹 Troubleshooting
+
+### 1. Bento Grid looks empty or broken?
+If you see missing icons or misaligned tiles, it means the database wasn't seeded with the official 5 category slugs. Run `npx tsx src/scripts/seed-all.ts` inside `apps/web` to reset.
+
+### 2. `createClientModuleProxy` Error
+If you see this hydration error after a new installation, it is likely due to Next.js build cache conflicts. Run:
+```bash
+cd apps/web
+rm -rf .next
+PORT=3006 pnpm dev
+```
 
 ---
 _Property of Naman Sinha (CTO) | Designed for Product Managers_
