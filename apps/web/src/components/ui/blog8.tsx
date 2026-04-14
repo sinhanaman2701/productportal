@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Calendar, Clock, Eye, Heart } from "lucide-react";
+import { Calendar, Eye, Heart } from "lucide-react";
 
 export interface Blog8Post {
   id: string;

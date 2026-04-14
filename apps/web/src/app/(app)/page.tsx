@@ -1,5 +1,3 @@
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
 import { ArticleCard } from "@/components/blog/ArticleCard";
 import { TabbedBlogSection } from "@/components/blog/TabbedBlogSection";
 import {
