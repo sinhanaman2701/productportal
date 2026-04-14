@@ -1,6 +1,7 @@
 import { buildConfig } from "payload";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { sqliteAdapter } from "@payloadcms/db-sqlite";
+import { postgresAdapter } from "@payloadcms/db-postgres";
 import path from "path";
 import { fileURLToPath } from "url";
 import { Users } from "./collections/Users.ts";
@@ -47,11 +48,21 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, "payload-types.ts"),
   },
-  db: sqliteAdapter({
-    client: {
-      url: process.env.DATABASE_URL ?? `file:${path.join(process.cwd(), "database.db")}`,
-    },
-  }),
+  db: (() => {
+    const databaseUrl = process.env.DATABASE_URL || "";
+    if (databaseUrl.startsWith("postgres") || databaseUrl.startsWith("postgresql")) {
+      return postgresAdapter({
+        pool: {
+          connectionString: databaseUrl,
+        },
+      });
+    }
+    return sqliteAdapter({
+      client: {
+        url: databaseUrl || `file:${path.join(process.cwd(), "database.db")}`,
+      },
+    });
+  })(),
   upload: {
     limits: {
       fileSize: 10_000_000, // 10 MB

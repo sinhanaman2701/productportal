@@ -17,6 +17,7 @@ The foundational backend, CMS, and high-performance blog platform for the next-g
 Before setting up the project locally, ensure you have the following installed:
 - **Node.js**: v18.20.0 or higher
 - **Package Manager**: pnpm (recommended) or npm
+- **Docker**: For running a local PostgreSQL instance (optional, defaults to SQLite)
 - **Git**
 
 ---
@@ -35,22 +36,28 @@ npm install --legacy-peer-deps
 ```
 
 ### 2. Configure Environment Variables
-You need to wire up the `.env` payload configuration within the active `web` application.
+You can toggle between SQLite and PostgreSQL simply by changing the `DATABASE_URL` format.
 
+**SQLite (Local):**
+```env
+DATABASE_URL=file:./database.db
+```
+
+**PostgreSQL (Docker):**
+Ensure Docker is running, then spin up the DB and point to the container:
 ```bash
-cd apps/web
-cp .env.example .env
+docker compose up -d
+```
+Then update your `.env`:
+```env
+DATABASE_URL=postgresql://payload:password@localhost:5432/pmblog
 ```
 
 Ensure your `apps/web/.env` has the following minimum variables:
 ```env
 NEXT_PUBLIC_SITE_URL=http://localhost:3006
 PAYLOAD_SECRET=your-secure-payload-secret
-DATABASE_URL=file:./database.db
-
-# Admin Seeding (Auto-registered on first boot)
-ADMIN_EMAIL=admin@pmcraft.test
-ADMIN_PASSWORD=password123
+DATABASE_URL=file:./database.db  # Or the postgres URL above
 ```
 
 ### 3. Initialize & Seed the Database
