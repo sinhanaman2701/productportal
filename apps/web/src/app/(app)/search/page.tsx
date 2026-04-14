@@ -107,7 +107,7 @@ export default function SearchPage() {
 
             {!isSearching && query && results.length === 0 && (
               <div className="text-center py-12 text-[var(--color-text-muted)]">
-                <p>No results found for "{query}".</p>
+                <p>No results found for &quot;{query}&quot;.</p>
                 <p className="text-sm mt-2">Try different or shorter keywords.</p>
               </div>
             )}

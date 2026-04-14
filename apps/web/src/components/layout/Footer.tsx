@@ -36,13 +36,13 @@ export function Footer() {
               growth. Written by practitioners, for practitioners.
             </p>
             <div className="flex items-center gap-2 pt-1">
-              <a
+              <Link
                 href="/api/rss"
                 aria-label="RSS Feed"
                 className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-orange-400)] hover:bg-[var(--color-surface-2)] rounded-[var(--radius-sm)] transition-all"
               >
                 <Rss size={16} />
-              </a>
+              </Link>
               <a
                 href="https://twitter.com"
                 target="_blank"
