@@ -94,6 +94,7 @@ Once the server has spun up successfully and the local compilation finishes, you
 1. **Persistent Layout Structures**: Do not attempt to unmount or bypass the `<Navbar />` inside individual routes. It lives explicitly in the `layout.tsx` to maintain complex Framer Motion `AppleSpotlight` layout projection calculations across route changes.
 2. **Strict Bright Mode**: We have explicitly discarded standard dark mode tailwind bindings (`dark:bg-black`) to ensure deep focus on typography crispness. All hues are mapped to system CSS Variables (e.g., `var(--color-surface)`).
 3. **Payload Local API**: To guarantee insane hydration speeds on SSG pages, Next.js Server Components query Payload through direct local execution context (`getPayloadClient()`), rather than initiating `fetch()` waterfalls.
+4. **Engagement Metrics (Views/Claps)**: We utilize a hybrid approach for metrics. Views are tracked via an invisible `<ViewTracker />` client component that pings a Server Action on mount, effectively bypassing Next.js static component caching. Claps are handled via a local-storage-guarded animated Like button.
 
 ---
 _Property of Naman Sinha (CTO) | Designed for Product Managers_
