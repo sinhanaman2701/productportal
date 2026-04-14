@@ -18,7 +18,7 @@ async function fixPost() {
         }
       });
     }
-    console.log('Post category relations fixed to:', categories.docs[0].name);
+    console.log('Post category relations fixed to:', categories.docs[0]?.name);
   }
   process.exit(0);
 }

@@ -47,6 +47,7 @@ async function seed() {
           format: "",
           indent: 0,
           version: 1,
+          direction: "ltr" as const,
           children: [
             {
               type: "heading",

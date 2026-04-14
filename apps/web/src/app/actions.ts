@@ -13,6 +13,7 @@ export async function incrementViews(slug: string) {
     
     if (docs.length > 0) {
       const doc = docs[0];
+      if (!doc) return { success: false, reason: "Not found" };
       const currentViews = typeof (doc as any).views === 'number' ? (doc as any).views : 0;
       
       await payload.update({
@@ -66,6 +67,7 @@ export async function incrementLikes(slug: string) {
     
     if (docs.length > 0) {
       const doc = docs[0];
+      if (!doc) return { success: false, reason: "Not found" };
       const currentLikes = typeof (doc as any).likes === 'number' ? (doc as any).likes : 0;
       
       await payload.update({

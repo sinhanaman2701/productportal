@@ -18,7 +18,9 @@ export function Navbar() {
 
   useEffect(() => {
     // Fetch posts mapping for search
-    getSearchActions().then(setSearchActions);
+    getSearchActions().then((actions) =>
+      setSearchActions(actions.map((a) => ({ ...a, id: String(a.id) })))
+    );
   }, []);
 
   useEffect(() => {

@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useMemo } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import type { Transition } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import type { Action } from "@/components/ui/action-search-bar";
@@ -256,7 +257,7 @@ const getResultItemVariants = (index: number, isUnsupported: boolean) => ({
   },
 });
 
-const getResultItemTransition = (index: number) => ({
+const getResultItemTransition = (index: number): Transition => ({
   duration: 0.4,
   delay: index * 0.05,
   type: "spring",

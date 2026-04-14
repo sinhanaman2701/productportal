@@ -123,7 +123,7 @@ const CATEGORY_THEMES: Record<string, {
 function getCategoryKey(slug: string): string {
   const slugLower = slug.toLowerCase();
   const key = Object.keys(CATEGORY_THEMES).find((k) => slugLower.includes(k));
-  return key || "default";
+  return key ?? "default";
 }
 
 // Category card component
@@ -135,7 +135,7 @@ function CategoryCard({
   index: number;
 }) {
   const categoryKey = getCategoryKey(category.slug);
-  const theme = CATEGORY_THEMES[categoryKey] || CATEGORY_THEMES.default;
+  const theme = CATEGORY_THEMES[categoryKey] ?? CATEGORY_THEMES["default"]!;
   const IconComponent = theme.icon;
 
   return (

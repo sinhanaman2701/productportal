@@ -26,6 +26,8 @@ export default function SearchPage() {
       try {
         if (typeof window !== "undefined" && !window.pagefind) {
           // In Next.js, pagefind files will be built to /pagefind/
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore - pagefind is a build-time artifact, not an installed package
           const pagefind = await import(
             /* webpackIgnore: true */ "/pagefind/pagefind.js"
           );

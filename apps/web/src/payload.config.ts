@@ -4,11 +4,11 @@ import { sqliteAdapter } from "@payloadcms/db-sqlite";
 import { postgresAdapter } from "@payloadcms/db-postgres";
 import path from "path";
 import { fileURLToPath } from "url";
-import { Users } from "./collections/Users.ts";
-import { Posts } from "./collections/Posts.ts";
-import { Categories } from "./collections/Categories.ts";
-import { Tags } from "./collections/Tags.ts";
-import { Media } from "./collections/Media.ts";
+import { Users } from "./collections/Users";
+import { Posts } from "./collections/Posts";
+import { Categories } from "./collections/Categories";
+import { Tags } from "./collections/Tags";
+import { Media } from "./collections/Media";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -39,7 +39,6 @@ export default buildConfig({
     user: Users.slug,
     meta: {
       titleSuffix: "— PM Blog Admin",
-      favicon: "/favicon.ico",
     },
   },
   collections: [Users, Posts, Categories, Tags, Media],
