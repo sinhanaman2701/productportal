@@ -1,6 +1,6 @@
-# PM Learning Platform - Core CMS Foundation
+# 🚀 PM Learning Platform - Ultimate Production Edition
 
-The foundational backend, CMS, and high-performance blog platform for the next-generation PM Learning Ecosystem.
+The definitive high-performance blog, CMS architecture, and category-driven platform for the PM Learning Ecosystem. Designed by Practitioners, Built for Leaders.
 
 ## 🚀 Tech Stack
 
@@ -28,8 +28,8 @@ Before setting up the project locally, ensure you have the following installed:
 Because of strict structural peer dependency constraints between the Next.js 15 App router and Payload UI architecture, you must install dependencies utilizing `--legacy-peer-deps` via npm to ensure clean resolution.
 
 ```bash
-git clone https://github.com/sinhanaman2701/ProductPlatform.git
-cd ProductPlatform
+git clone https://github.com/sinhanaman2701/productportal.git
+cd productportal
 
 # Install root workspace dependencies
 pnpm install
@@ -85,8 +85,18 @@ Once the server has spun up successfully and the local compilation finishes, you
 
 - **Public Client Frontend**: [http://localhost:3006](http://localhost:3006)
 - **Payload CMS Admin Dashboard**: [http://localhost:3006/admin](http://localhost:3006/admin)
-  - _Login with the credentials defined in your `.env` file (e.g. `admin@pmcraft.test`)_
+  - **Email**: `admin@pmcraft.test`
+  - **Password**: `password123`
 - **Public API Route**: [http://localhost:3006/api/posts](http://localhost:3006/api/posts)
+
+---
+
+## 🔍 Search Indexing (Pagefind)
+This project uses **Pagefind** for lightning-fast, static-search. To enable search on a new machine:
+1. Run a build: `pnpm build`
+2. Generate the index: `cd apps/web && npx pagefind --site .next/server/app --output-subdir ../../../public/pagefind`
+
+_Note: In development mode, search will attempt to load from your local `/public/pagefind` directory._
 
 ## 🏗 Key Engineering Principles
 
