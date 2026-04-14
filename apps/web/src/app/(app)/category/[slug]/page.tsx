@@ -1,6 +1,4 @@
 import { notFound } from "next/navigation";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
 import { ArticleCard } from "@/components/blog/ArticleCard";
 import { getCategoryBySlug, getPostsByCategory, getAllCategories } from "@/lib/payload";
 import type { Metadata } from "next";

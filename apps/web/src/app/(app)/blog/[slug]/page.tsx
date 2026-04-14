@@ -1,6 +1,4 @@
 import { notFound } from "next/navigation";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
 import { ReadingProgressBar } from "@/components/layout/ReadingProgressBar";
 import { ArticleCard } from "@/components/blog/ArticleCard";
 import { ViewTracker } from "@/components/blog/ViewTracker";
