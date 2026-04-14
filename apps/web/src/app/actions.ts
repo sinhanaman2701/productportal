@@ -54,3 +54,30 @@ export async function getSearchActions() {
     return [];
   }
 }
+
+export async function incrementLikes(slug: string) {
+  try {
+    const payload = await getPayloadClient();
+    const { docs } = await payload.find({
+      collection: "posts",
+      where: { slug: { equals: slug } },
+      limit: 1,
+    });
+    
+    if (docs.length > 0) {
+      const doc = docs[0];
+      const currentLikes = typeof (doc as any).likes === 'number' ? (doc as any).likes : 0;
+      
+      await payload.update({
+        collection: "posts",
+        id: doc.id,
+        data: { likes: currentLikes + 1 },
+      });
+      return { success: true, newLikes: currentLikes + 1 };
+    }
+    return { success: false, reason: "Not found" };
+  } catch (error) {
+    console.error("Failed to increment likes:", error);
+    return { success: false };
+  }
+}

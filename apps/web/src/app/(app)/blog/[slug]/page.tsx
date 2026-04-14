@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/Footer";
 import { ReadingProgressBar } from "@/components/layout/ReadingProgressBar";
 import { ArticleCard } from "@/components/blog/ArticleCard";
 import { ViewTracker } from "@/components/blog/ViewTracker";
+import { LikeButton } from "@/components/blog/LikeButton";
 import { getPostBySlug, getAllPosts, getRelatedPosts } from "@/lib/payload";
 import { formatDate, absoluteUrl } from "@/lib/utils";
 import Image from "next/image";
@@ -207,6 +208,17 @@ export default async function ArticlePage({ params }: Props) {
                 )}
               </div>
 
+              {/* Interaction Section */}
+              <div className="mt-16 py-12 border-y border-[var(--color-border)] flex flex-col items-center justify-center bg-[var(--color-surface)]/30 rounded-3xl">
+                <h3 className="font-[var(--font-heading)] text-xl font-bold text-[var(--color-text-primary)] mb-2">
+                  Enjoyed this read?
+                </h3>
+                <p className="text-[var(--color-text-secondary)] text-sm mb-8">
+                  Drop a clap to let the author know!
+                </p>
+                <LikeButton slug={slug} initialLikes={post.likes ?? 0} />
+              </div>
+
               {/* Share */}
               <div className="mt-12 pt-8 border-t border-[var(--color-border)] flex items-center justify-between">
                 <Link
@@ -226,13 +238,35 @@ export default async function ArticlePage({ params }: Props) {
 
             {/* Sidebar */}
             <aside className="hidden lg:block">
-              <div className="sticky top-24 space-y-6">
+              <div className="sticky top-24 space-y-8">
+                {/* Stats Card */}
+                <div className="p-5 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-lg)]">
+                  <h2 className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--color-text-muted)] mb-4">
+                    Engagement
+                  </h2>
+                  <div className="flex items-center justify-between">
+                    <div className="flex flex-col">
+                      <span className="text-xl font-bold text-[var(--color-text-primary)] font-[var(--font-heading)]">
+                        {(post.views ?? 0).toLocaleString()}
+                      </span>
+                      <span className="text-[10px] font-medium text-[var(--color-text-muted)] uppercase tracking-wider">Views</span>
+                    </div>
+                    <div className="w-px h-8 bg-[var(--color-border)]" />
+                    <div className="flex flex-col items-end">
+                      <span className="text-xl font-bold text-[var(--color-text-primary)] font-[var(--font-heading)]">
+                        {(post.likes ?? 0).toLocaleString()}
+                      </span>
+                      <span className="text-[10px] font-medium text-[var(--color-text-muted)] uppercase tracking-wider">Claps</span>
+                    </div>
+                  </div>
+                </div>
+
                 {related.length > 0 && (
                   <div>
-                    <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-muted)] mb-4">
+                    <h2 className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--color-text-muted)] mb-4">
                       Related Articles
                     </h2>
-                    <div className="space-y-3">
+                    <div className="space-y-4">
                       {related.map((r) => (
                         <ArticleCard key={r.id} post={r} variant="compact" />
                       ))}
