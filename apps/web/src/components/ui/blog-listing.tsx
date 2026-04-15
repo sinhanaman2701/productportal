@@ -53,9 +53,9 @@ export function BlogListing({ posts, className }: BlogListingProps) {
           transition={{ duration: 0.4, delay: index * ANIMATION_DELAY_PER_ITEM }}
           className="group"
         >
-          <div className="grid gap-6 sm:grid-cols-10 sm:gap-5 md:gap-8 lg:gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-10 gap-6 md:gap-8 lg:gap-12">
             {/* Content - Left Side */}
-            <div className="sm:col-span-5 flex flex-col justify-center">
+            <div className="md:col-span-5 flex flex-col justify-center">
               {/* Category Tags */}
               <div className="mb-4 md:mb-6">
                 <div className="flex flex-wrap gap-3 text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-muted)] md:gap-5 lg:gap-6">
@@ -106,7 +106,7 @@ export function BlogListing({ posts, className }: BlogListingProps) {
             </div>
 
             {/* Image - Right Side */}
-            <div className="order-first sm:order-last sm:col-span-5">
+            <div className="md:col-span-5">
               <Link href={post.url} className="block">
                 <div className="aspect-[16/9] overflow-hidden rounded-lg border border-[var(--color-border)]">
                   <Image
@@ -114,7 +114,7 @@ export function BlogListing({ posts, className }: BlogListingProps) {
                     alt={post.title}
                     fill
                     className="h-full w-full object-cover transition-opacity duration-200 hover:opacity-70"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 40vw"
                     priority={index < PRIORITY_IMAGE_COUNT}
                   />
                 </div>
