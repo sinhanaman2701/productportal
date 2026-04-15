@@ -51,7 +51,7 @@ export function BlogListing({ posts, className }: BlogListingProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4, delay: index * ANIMATION_DELAY_PER_ITEM }}
-          className="group"
+          className="group pb-12 border-b border-[var(--color-border)] last:border-b-0"
         >
           <div className="grid grid-cols-1 md:grid-cols-10 gap-6 md:gap-8 lg:gap-12">
             {/* Content - Left Side */}
