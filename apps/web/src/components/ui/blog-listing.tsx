@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Eye, Heart } from "lucide-react";
+import { ArrowRight, Eye, Heart } from "lucide-react";
 import type { Blog8Post } from "./blog8";
 
 export type { Blog8Post };
@@ -23,17 +23,19 @@ export function BlogListing({ posts, className }: BlogListingProps) {
     return (
       <div className="flex flex-col gap-12 py-8">
         {[...Array(3)].map((_, i) => (
-          <div key={i} className="flex gap-8">
-            <div className="flex-1 space-y-4">
-              <div className="flex gap-2">
-                <div className="h-5 bg-[var(--color-surface-2)] rounded-full w-20" />
-                <div className="h-5 bg-[var(--color-surface-2)] rounded-full w-20" />
+          <div key={i} className="grid gap-6 sm:grid-cols-10 sm:gap-5 md:gap-8 lg:gap-12">
+            <div className="sm:col-span-5 space-y-4">
+              <div className="flex gap-3">
+                <div className="h-5 bg-[var(--color-surface-2)] rounded w-20" />
+                <div className="h-5 bg-[var(--color-surface-2)] rounded w-20" />
               </div>
-              <div className="h-7 bg-[var(--color-surface-2)] rounded w-3/4" />
+              <div className="h-8 bg-[var(--color-surface-2)] rounded w-3/4" />
               <div className="h-4 bg-[var(--color-surface-2)] rounded w-full" />
               <div className="h-4 bg-[var(--color-surface-2)] rounded w-2/3" />
             </div>
-            <div className="w-80 h-48 bg-[var(--color-surface-2)] rounded-[var(--radius-lg)] shrink-0" />
+            <div className="sm:col-span-5">
+              <div className="aspect-[16/9] bg-[var(--color-surface-2)] rounded-lg" />
+            </div>
           </div>
         ))}
       </div>
@@ -51,59 +53,74 @@ export function BlogListing({ posts, className }: BlogListingProps) {
           transition={{ duration: 0.4, delay: index * ANIMATION_DELAY_PER_ITEM }}
           className="group"
         >
-          <Link href={post.url} className="flex gap-6 items-center" aria-label={post.title}>
+          <div className="grid gap-6 sm:grid-cols-10 sm:gap-5 md:gap-8 lg:gap-12">
             {/* Content - Left Side */}
-            <div className="flex-1 min-w-0 flex flex-col">
+            <div className="sm:col-span-5 flex flex-col justify-center">
               {/* Category Tags */}
-              <div className="flex flex-wrap gap-2 mb-3">
-                <span className="px-3 py-1 text-[10px] font-bold uppercase tracking-wider bg-[var(--color-indigo-50)] text-[var(--color-indigo-600)] rounded-full">
-                  {post.label}
-                </span>
-                {post.tags && post.tags.length > 0 && post.tags.slice(0, MAX_TAGS_TO_SHOW).map((tag, i) => (
-                  <span
-                    key={i}
-                    className="px-3 py-1 text-[10px] font-bold uppercase tracking-wider bg-[var(--color-surface-2)] text-[var(--color-text-secondary)] rounded-full"
-                  >
-                    {tag}
-                  </span>
-                ))}
+              <div className="mb-4 md:mb-6">
+                <div className="flex flex-wrap gap-3 text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-muted)] md:gap-5 lg:gap-6">
+                  <span className="text-[var(--color-indigo-600)]">{post.label}</span>
+                  {post.tags && post.tags.length > 0 && post.tags.slice(0, MAX_TAGS_TO_SHOW).map((tag, i) => (
+                    <span key={i} className="text-[var(--color-text-secondary)]">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
 
               {/* Title */}
-              <h3 className="font-[var(--font-heading)] text-2xl font-bold text-[var(--color-text-primary)] group-hover:text-[var(--color-indigo-500)] transition-colors line-clamp-2 leading-tight mb-3">
-                {post.title}
+              <h3 className="text-xl font-semibold md:text-2xl lg:text-3xl">
+                <Link href={post.url} className="hover:underline">
+                  {post.title}
+                </Link>
               </h3>
 
               {/* Summary/Excerpt */}
-              <p className="text-sm text-[var(--color-text-secondary)] line-clamp-2 leading-relaxed mb-4">
+              <p className="mt-4 text-[var(--color-text-secondary)] md:mt-5 md:text-base">
                 {post.summary}
               </p>
 
-              {/* Metadata Row - Just views and likes */}
-              <div className="flex items-center gap-4 text-xs text-[var(--color-text-muted)]">
-                <span className="flex items-center gap-1.5">
-                  <Eye size={14} className="text-[var(--color-text-muted)]" />
+              {/* Metadata Row */}
+              <div className="mt-6 flex items-center space-x-4 text-sm md:mt-8">
+                <span className="flex items-center gap-1.5 text-[var(--color-text-muted)]">
+                  <Eye size={14} />
                   <span className="font-medium">{post.views ?? 0}</span>
                 </span>
-                <span className="flex items-center gap-1.5">
-                  <Heart size={14} className="text-[var(--color-text-muted)]" />
+                <span className="text-[var(--color-text-muted)]">•</span>
+                <span className="flex items-center gap-1.5 text-[var(--color-text-muted)]">
+                  <Heart size={14} />
                   <span className="font-medium">{post.likes ?? 0}</span>
                 </span>
               </div>
+
+              {/* Read More Link */}
+              <div className="mt-6 flex items-center space-x-2 md:mt-8">
+                <Link
+                  href={post.url}
+                  className="inline-flex items-center font-semibold text-[var(--color-indigo-600)] hover:underline md:text-base"
+                >
+                  <span>Read more</span>
+                  <ArrowRight className="ml-2 size-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </div>
             </div>
 
-            {/* Large Landscape Image - Right Side */}
-            <div className="relative w-80 h-48 shrink-0 overflow-hidden rounded-[var(--radius-lg)] bg-[var(--color-surface-2)]">
-              <Image
-                src={post.image}
-                alt={post.title}
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-                sizes="(max-width: 1024px) 280px, 320px"
-                priority={index < PRIORITY_IMAGE_COUNT}
-              />
+            {/* Image - Right Side */}
+            <div className="order-first sm:order-last sm:col-span-5">
+              <Link href={post.url} className="block">
+                <div className="aspect-[16/9] overflow-hidden rounded-lg border border-[var(--color-border)]">
+                  <Image
+                    src={post.image}
+                    alt={post.title}
+                    fill
+                    className="h-full w-full object-cover transition-opacity duration-200 hover:opacity-70"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
+                    priority={index < PRIORITY_IMAGE_COUNT}
+                  />
+                </div>
+              </Link>
             </div>
-          </Link>
+          </div>
         </motion.article>
       ))}
     </div>
