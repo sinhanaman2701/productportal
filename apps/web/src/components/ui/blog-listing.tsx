@@ -9,11 +9,16 @@ import type { Blog8Post } from "./blog8";
 
 export type { Blog8Post };
 
+const ANIMATION_DELAY_PER_ITEM = 0.04;
+const MAX_TAGS_TO_SHOW = 2;
+const PRIORITY_IMAGE_COUNT = 3;
+
 interface BlogListingProps {
   posts?: Blog8Post[];
+  className?: string;
 }
 
-export function BlogListing({ posts }: BlogListingProps) {
+export function BlogListing({ posts, className }: BlogListingProps) {
   if (!posts || posts.length === 0) {
     return (
       <div className="flex flex-col gap-12 py-8">
@@ -36,17 +41,17 @@ export function BlogListing({ posts }: BlogListingProps) {
   }
 
   return (
-    <div className="flex flex-col gap-12 py-4">
+    <div className={cn("flex flex-col gap-12 py-4", className)}>
       {posts.map((post, index) => (
         <motion.article
           key={post.id}
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: index * 0.04 }}
+          transition={{ duration: 0.4, delay: index * ANIMATION_DELAY_PER_ITEM }}
           className="group"
         >
-          <Link href={post.url} className="flex gap-8">
+          <Link href={post.url} className="flex gap-8" aria-label={post.title}>
             {/* Content - Left Side */}
             <div className="flex-1 min-w-0 flex flex-col justify-center">
               {/* Category Tags */}
@@ -54,7 +59,7 @@ export function BlogListing({ posts }: BlogListingProps) {
                 <span className="px-3 py-1 text-[10px] font-bold uppercase tracking-wider bg-[var(--color-indigo-50)] text-[var(--color-indigo-600)] rounded-full">
                   {post.label}
                 </span>
-                {post.tags && post.tags.length > 0 && post.tags.slice(0, 2).map((tag, i) => (
+                {post.tags && post.tags.length > 0 && post.tags.slice(0, MAX_TAGS_TO_SHOW).map((tag, i) => (
                   <span
                     key={i}
                     className="px-3 py-1 text-[10px] font-bold uppercase tracking-wider bg-[var(--color-surface-2)] text-[var(--color-text-secondary)] rounded-full"
@@ -91,11 +96,11 @@ export function BlogListing({ posts }: BlogListingProps) {
             <div className="relative w-80 h-48 shrink-0 overflow-hidden rounded-[var(--radius-lg)] bg-[var(--color-surface-2)]">
               <Image
                 src={post.image}
-                alt={post.summary?.slice(0, 80) || post.title}
+                alt={post.title}
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
                 sizes="(max-width: 1024px) 280px, 320px"
-                priority={index < 3}
+                priority={index < PRIORITY_IMAGE_COUNT}
               />
             </div>
           </Link>
