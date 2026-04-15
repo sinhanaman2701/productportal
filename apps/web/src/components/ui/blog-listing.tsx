@@ -51,9 +51,9 @@ export function BlogListing({ posts, className }: BlogListingProps) {
           transition={{ duration: 0.4, delay: index * ANIMATION_DELAY_PER_ITEM }}
           className="group"
         >
-          <Link href={post.url} className="flex gap-8" aria-label={post.title}>
+          <Link href={post.url} className="flex gap-6 items-center" aria-label={post.title}>
             {/* Content - Left Side */}
-            <div className="flex-1 min-w-0 flex flex-col justify-center">
+            <div className="flex-1 min-w-0 flex flex-col">
               {/* Category Tags */}
               <div className="flex flex-wrap gap-2 mb-4">
                 <span className="px-3 py-1 text-[10px] font-bold uppercase tracking-wider bg-[var(--color-indigo-50)] text-[var(--color-indigo-600)] rounded-full">
