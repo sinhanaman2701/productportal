@@ -21,17 +21,17 @@ interface BlogListingProps {
 export function BlogListing({ posts, className }: BlogListingProps) {
   if (!posts || posts.length === 0) {
     return (
-      <div className="flex flex-col gap-12 py-8">
+      <div className="flex flex-col gap-8 py-8">
         {[...Array(3)].map((_, i) => (
-          <div key={i} className="grid gap-6 sm:grid-cols-10 sm:gap-5 md:gap-8 lg:gap-12">
-            <div className="sm:col-span-5 space-y-4">
-              <div className="flex gap-3">
-                <div className="h-5 bg-[var(--color-surface-2)] rounded w-20" />
-                <div className="h-5 bg-[var(--color-surface-2)] rounded w-20" />
+          <div key={i} className="grid gap-4 sm:grid-cols-10 sm:gap-5 md:gap-6 lg:gap-8">
+            <div className="sm:col-span-5 space-y-3">
+              <div className="flex gap-2">
+                <div className="h-4 bg-[var(--color-surface-2)] rounded w-16" />
+                <div className="h-4 bg-[var(--color-surface-2)] rounded w-16" />
               </div>
-              <div className="h-8 bg-[var(--color-surface-2)] rounded w-3/4" />
-              <div className="h-4 bg-[var(--color-surface-2)] rounded w-full" />
-              <div className="h-4 bg-[var(--color-surface-2)] rounded w-2/3" />
+              <div className="h-6 bg-[var(--color-surface-2)] rounded w-3/4" />
+              <div className="h-3 bg-[var(--color-surface-2)] rounded w-full" />
+              <div className="h-3 bg-[var(--color-surface-2)] rounded w-2/3" />
             </div>
             <div className="sm:col-span-5">
               <div className="aspect-[16/9] bg-[var(--color-surface-2)] rounded-lg" />
@@ -43,7 +43,7 @@ export function BlogListing({ posts, className }: BlogListingProps) {
   }
 
   return (
-    <div className={cn("flex flex-col gap-12 py-4", className)}>
+    <div className={cn("flex flex-col gap-8 py-4", className)}>
       {posts.map((post, index) => (
         <motion.article
           key={post.id}
@@ -51,13 +51,13 @@ export function BlogListing({ posts, className }: BlogListingProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4, delay: index * ANIMATION_DELAY_PER_ITEM }}
-          className="group pb-12 border-b border-[var(--color-border)] last:border-b-0"
+          className="group pb-8 border-b border-[var(--color-border)] last:border-b-0"
         >
-          <div className="grid grid-cols-1 md:grid-cols-10 gap-6 md:gap-8 lg:gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-10 gap-4 md:gap-6 lg:gap-8">
             {/* Content - Left Side */}
             <div className="md:col-span-5 flex flex-col justify-center">
               {/* Category Tags */}
-              <div className="mb-4 md:mb-6">
+              <div className="mb-2 md:mb-3">
                 <div className="flex flex-wrap gap-3 text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-muted)] md:gap-5 lg:gap-6">
                   <span className="text-[var(--color-indigo-600)]">{post.label}</span>
                   {post.tags && post.tags.length > 0 && post.tags.slice(0, MAX_TAGS_TO_SHOW).map((tag, i) => (
@@ -76,12 +76,12 @@ export function BlogListing({ posts, className }: BlogListingProps) {
               </h3>
 
               {/* Summary/Excerpt */}
-              <p className="mt-4 text-[var(--color-text-secondary)] md:mt-5 md:text-base">
+              <p className="mt-2 text-[var(--color-text-secondary)] md:mt-3 md:text-base mb-3">
                 {post.summary}
               </p>
 
               {/* Metadata Row */}
-              <div className="mt-6 flex items-center space-x-4 text-sm md:mt-8">
+              <div className="mt-3 flex items-center space-x-4 text-sm md:mt-4">
                 <span className="flex items-center gap-1.5 text-[var(--color-text-muted)]">
                   <Eye size={14} />
                   <span className="font-medium">{post.views ?? 0}</span>
@@ -94,7 +94,7 @@ export function BlogListing({ posts, className }: BlogListingProps) {
               </div>
 
               {/* Read More Link */}
-              <div className="mt-6 flex items-center space-x-2 md:mt-8">
+              <div className="mt-3 flex items-center space-x-2 md:mt-4">
                 <Link
                   href={post.url}
                   className="inline-flex items-center font-semibold text-[var(--color-indigo-600)] hover:underline md:text-base"
@@ -106,7 +106,7 @@ export function BlogListing({ posts, className }: BlogListingProps) {
             </div>
 
             {/* Image - Right Side */}
-            <div className="md:col-span-5 w-full">
+            <div className="md:col-span-5 w-full max-w-[280px]">
               <Link href={post.url} className="block relative">
                 <div className="relative w-full aspect-[16/9] overflow-hidden rounded-lg border border-[var(--color-border)]">
                   <Image
