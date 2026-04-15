@@ -159,10 +159,9 @@ export interface User {
 export interface Media {
   id: number;
   /**
-   * Descriptive alt text for screen readers and SEO
+   * Descriptive alt text for screen readers and SEO (add after uploading)
    */
-  alt: string;
-  caption?: string | null;
+  alt?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -216,6 +215,9 @@ export interface Post {
    * 2-3 sentence summary shown on cards and for SEO
    */
   excerpt?: string | null;
+  /**
+   * Upload cover image from local files — alt text required
+   */
   coverImage?: (number | null) | Media;
   content: {
     root: {
@@ -236,10 +238,6 @@ export interface Post {
   tags?: (number | Tag)[] | null;
   author?: (number | null) | User;
   status: 'draft' | 'published' | 'archived';
-  /**
-   * Pin to homepage hero / featured section
-   */
-  featured?: boolean | null;
   /**
    * Leave empty to auto-set on publish
    */
@@ -435,7 +433,6 @@ export interface PostsSelect<T extends boolean = true> {
   tags?: T;
   author?: T;
   status?: T;
-  featured?: T;
   publishedAt?: T;
   seo?:
     | T
@@ -481,7 +478,6 @@ export interface TagsSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
-  caption?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;

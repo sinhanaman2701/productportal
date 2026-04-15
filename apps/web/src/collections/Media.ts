@@ -27,6 +27,10 @@ export const Media: CollectionConfig = {
     adminThumbnail: "thumbnail",
     mimeTypes: ["image/*"],
   },
+  admin: {
+    // Hide Media from main nav - only accessible via upload fields
+    hidden: true,
+  },
   access: {
     read: () => true,
     create: ({ req }) => !!req.user,
@@ -37,14 +41,10 @@ export const Media: CollectionConfig = {
     {
       name: "alt",
       type: "text",
-      required: true,
+      required: false,
       admin: {
-        description: "Descriptive alt text for screen readers and SEO",
+        description: "Descriptive alt text for screen readers and SEO (add after uploading)",
       },
-    },
-    {
-      name: "caption",
-      type: "text",
     },
   ],
 };

@@ -4,7 +4,7 @@ export const Posts: CollectionConfig = {
   slug: "posts",
   admin: {
     useAsTitle: "title",
-    defaultColumns: ["title", "status", "category", "publishedAt", "featured"],
+    defaultColumns: ["title", "status", "category", "publishedAt"],
     preview: (doc) => `http://localhost:3000/blog/${doc.slug}`,
   },
   access: {
@@ -52,6 +52,13 @@ export const Posts: CollectionConfig = {
       name: "coverImage",
       type: "upload",
       relationTo: "media",
+      admin: {
+        description: "Upload cover image from local files — alt text required",
+        components: {
+          Field: "@/components/admin/UploadOnly/UploadOnly#UploadOnly",
+        },
+      },
+      required: false,
     },
     {
       name: "content",
@@ -101,15 +108,6 @@ export const Posts: CollectionConfig = {
       ],
       admin: {
         position: "sidebar",
-      },
-    },
-    {
-      name: "featured",
-      type: "checkbox",
-      defaultValue: false,
-      admin: {
-        position: "sidebar",
-        description: "Pin to homepage hero / featured section",
       },
     },
     {

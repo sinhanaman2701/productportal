@@ -1,21 +1,25 @@
 @import "tailwindcss";
 
 @theme {
-  /* ─── Fonts ─── */
+  /* ─── Fonts ── */
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-heading: "Geist", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Merriweather", ui-serif, serif;
   --font-mono: "Geist Mono", ui-monospace, monospace;
 
-  /* ─── Brand palette ─── */
+  /* ─── Brand palette (Monochrome) ─── */
   --color-background:   #ffffff;
   --color-surface:      #ffffff;
   --color-surface-2:    #f5f5f5;
-  --color-border:       rgba(0,0,0,0.08);
-  --color-border-hover: rgba(0,0,0,0.16);
+  --color-border:       #e5e7eb;
+  --color-border-hover: #d1d5db;
 
-  --color-text-primary:   var(--color-base-content);
-  --color-text-secondary: #555555;
+  --color-text-primary:   #1a1a1a;
+  --color-text-secondary: #6b7280;
+  --color-text-tertiary:  #9ca3af;
   --color-text-muted:     #888888;
+
+  --color-blue-600: #2563eb;
+  --color-blue-700: #1d4ed8;
 
   --color-indigo-400: #818cf8;
   --color-indigo-500: #6366f1;
@@ -27,33 +31,17 @@
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 12px;
+  --radius-full: 9999px;
 
-  /* ─── Bento Grid Brand Palette ─── */
-  --color-highlight-light: #DADBF8;
-  --color-accent-light: #D9EAE3;
-  --color-primary-light: #FFCFE1;
-  --color-secondary-light: #FFFCE5;
-  --color-primary: #FF0F67;
-  --color-primary-content: #fff;
-  --color-secondary: #FFF07C;
-  --color-secondary-content: #0A0A0A;
-  --color-accent: #439775;
-  --color-accent-content: #0A0A0A;
-  --color-neutral: #222222;
-  --color-neutral-content: #FFFFFF;
-  --color-base-100: #f0f0f0;
-  --color-base-200: #ffffff;
-  --color-base-300: #F2F2F2;
-  --color-base-content: #0A0A0A;
-  --color-info: #3ABFF8;
-  --color-success: #36D399;
-  --color-warning: #FBBD23;
-  --color-error: #F87272;
-  --color-highlight: #454ADE;
+  /* ─── Shadows ─── */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.07);
+  --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
 
-  /* Subtle accents for category cards */
-  --color-indigo-50: #eef2ff;
-  --color-orange-50: #fff7ed;
+  /* ─── Transitions ─── */
+  --transition-fast: 150ms ease;
+  --transition-normal: 200ms ease;
+  --transition-slow: 300ms ease;
 }
 
 @layer base {
@@ -74,8 +62,17 @@
     line-height: 1.75;
   }
 
+  /* Typography utilities */
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .font-serif {
+    font-family: var(--font-serif);
+  }
+
   ::selection {
-    background-color: var(--color-indigo-600);
+    background-color: var(--color-blue-600);
     color: #fff;
   }
 
@@ -84,6 +81,32 @@
   ::-webkit-scrollbar-track { background: var(--color-background); }
   ::-webkit-scrollbar-thumb { background: var(--color-surface-2); border-radius: 3px; }
   ::-webkit-scrollbar-thumb:hover { background: var(--color-text-muted); }
+
+  /* Hide scrollbar for category chips */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Fade in up animation */
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 0.4s ease-out;
+  }
 }
 
 @layer utilities {

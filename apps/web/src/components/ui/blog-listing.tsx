@@ -55,7 +55,7 @@ export function BlogListing({ posts, className }: BlogListingProps) {
         >
           <div className="grid grid-cols-1 md:grid-cols-10 gap-4 md:gap-6 lg:gap-8">
             {/* Content - Left Side */}
-            <div className="md:col-span-5 flex flex-col justify-center">
+            <div className="md:col-span-5 flex flex-col justify-between">
               {/* Category Tags */}
               <div className="mb-2 md:mb-3">
                 <div className="flex flex-wrap gap-3 text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-muted)] md:gap-5 lg:gap-6">

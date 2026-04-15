@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { Inter, Geist, Geist_Mono } from "next/font/google";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
+import { Inter, Merriweather } from "next/font/google";
+import { HeaderMinimal } from "@/components/homepage/HeaderMinimal";
+import { FooterMinimal } from "@/components/homepage/FooterMinimal";
 import "./globals.css";
 
 const inter = Inter({
@@ -10,16 +10,11 @@ const inter = Inter({
   display: "swap",
 });
 
-const geist = Geist({
+const merriweather = Merriweather({
   subsets: ["latin"],
-  variable: "--font-heading",
+  variable: "--font-serif",
   display: "swap",
-});
-
-const geistMono = Geist_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-  display: "swap",
+  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
@@ -54,14 +49,14 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${geist.variable} ${geistMono.variable}`}
+      className={`${inter.variable} ${merriweather.variable}`}
     >
       <body className="min-h-screen antialiased flex flex-col justify-between">
-        <Navbar />
-        <div className="flex-1">
+        <HeaderMinimal />
+        <div className="flex-1 pt-16">
           {children}
         </div>
-        <Footer />
+        <FooterMinimal />
       </body>
     </html>
   );
