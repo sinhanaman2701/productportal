@@ -106,14 +106,14 @@ export function BlogListing({ posts, className }: BlogListingProps) {
             </div>
 
             {/* Image - Right Side */}
-            <div className="md:col-span-5">
-              <Link href={post.url} className="block">
-                <div className="aspect-[16/9] overflow-hidden rounded-lg border border-[var(--color-border)]">
+            <div className="md:col-span-5 w-full">
+              <Link href={post.url} className="block relative">
+                <div className="relative w-full aspect-[16/9] overflow-hidden rounded-lg border border-[var(--color-border)]">
                   <Image
                     src={post.image}
                     alt={post.title}
                     fill
-                    className="h-full w-full object-cover transition-opacity duration-200 hover:opacity-70"
+                    className="object-cover transition-opacity duration-200 hover:opacity-70"
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 40vw"
                     priority={index < PRIORITY_IMAGE_COUNT}
                   />
