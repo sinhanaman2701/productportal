@@ -7,6 +7,8 @@ import { motion } from "framer-motion";
 import { Calendar, Eye, Heart, MessageSquare } from "lucide-react";
 import type { Blog8Post } from "./blog8";
 
+export type { Blog8Post };
+
 interface BlogListingProps {
   posts?: Blog8Post[];
 }

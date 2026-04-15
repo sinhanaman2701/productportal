@@ -1,7 +1,7 @@
 "use client";
 
 import { Tabs, TabsList, TabsTab, TabsPanel } from "@/components/ui/tabs";
-import { Blog8, type Blog8Post } from "@/components/ui/blog8";
+import { BlogListing, type Blog8Post } from "@/components/ui/blog-listing";
 import { Flame, TrendingUp, Sparkles } from "lucide-react";
 
 interface TabbedBlogSectionProps {
@@ -32,13 +32,13 @@ export function TabbedBlogSection({ peoplesChoice, top, newest }: TabbedBlogSect
         </div>
 
         <TabsPanel value="peoples-choice">
-          <Blog8 posts={peoplesChoice.length > 0 ? peoplesChoice : undefined} />
+          <BlogListing posts={peoplesChoice.length > 0 ? peoplesChoice : undefined} />
         </TabsPanel>
         <TabsPanel value="top">
-          <Blog8 posts={top.length > 0 ? top : undefined} />
+          <BlogListing posts={top.length > 0 ? top : undefined} />
         </TabsPanel>
         <TabsPanel value="newest">
-          <Blog8 posts={newest.length > 0 ? newest : undefined} />
+          <BlogListing posts={newest.length > 0 ? newest : undefined} />
         </TabsPanel>
       </Tabs>
     </div>
