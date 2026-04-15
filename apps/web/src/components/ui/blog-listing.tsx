@@ -55,7 +55,7 @@ export function BlogListing({ posts, className }: BlogListingProps) {
             {/* Content - Left Side */}
             <div className="flex-1 min-w-0 flex flex-col">
               {/* Category Tags */}
-              <div className="flex flex-wrap gap-2 mb-4">
+              <div className="flex flex-wrap gap-2 mb-3">
                 <span className="px-3 py-1 text-[10px] font-bold uppercase tracking-wider bg-[var(--color-indigo-50)] text-[var(--color-indigo-600)] rounded-full">
                   {post.label}
                 </span>
@@ -70,12 +70,12 @@ export function BlogListing({ posts, className }: BlogListingProps) {
               </div>
 
               {/* Title */}
-              <h3 className="font-[var(--font-heading)] text-2xl font-bold text-[var(--color-text-primary)] group-hover:text-[var(--color-indigo-500)] transition-colors line-clamp-2 leading-tight mb-4">
+              <h3 className="font-[var(--font-heading)] text-2xl font-bold text-[var(--color-text-primary)] group-hover:text-[var(--color-indigo-500)] transition-colors line-clamp-2 leading-tight mb-3">
                 {post.title}
               </h3>
 
               {/* Summary/Excerpt */}
-              <p className="text-sm text-[var(--color-text-secondary)] line-clamp-3 leading-relaxed mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] line-clamp-2 leading-relaxed mb-4">
                 {post.summary}
               </p>
 
