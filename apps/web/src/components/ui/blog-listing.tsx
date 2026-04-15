@@ -91,7 +91,7 @@ export function BlogListing({ posts }: BlogListingProps) {
             <div className="relative w-24 h-24 shrink-0 overflow-hidden rounded-[var(--radius-sm)] bg-[var(--color-surface-2)]">
               <Image
                 src={post.image}
-                alt={post.title}
+                alt={post.summary?.slice(0, 80) || post.title}
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
                 sizes="96px"
